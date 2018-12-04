@@ -16,7 +16,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".InscriptionActivity" />
-        <activity android:name=".CalculImc"></activity>
+        <activity android:name=".CalculImc" />
     </application>
 
 </manifest>

@@ -1,6 +1,8 @@
 package com.example.admin.v1;
 
+import android.app.AlertDialog;
 import android.content.Intent;
+import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -17,15 +19,17 @@ public class MainActivity extends AppCompatActivity {
     DatabaseHelper helper;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        helper=new DatabaseHelper(this);
-        email=(EditText)findViewById(R.id.email);
-        mp=(EditText)findViewById(R.id.mp);
-        Register=(TextView) findViewById(R.id.inscr);
-        cnx=(Button)findViewById(R.id.btncnx);
+        helper = new DatabaseHelper(this);
+        email = (EditText) findViewById(R.id.login);
+        mp = (EditText) findViewById(R.id.password);
+        Register = (TextView) findViewById(R.id.inscr);
+        cnx = (Button) findViewById(R.id.btncnx);
+
 
         Register.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -37,20 +41,36 @@ public class MainActivity extends AppCompatActivity {
         cnx.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+           String  m=email.getText().toString();
+                String p=mp.getText().toString();
 
-               String Password=helper.searchPass(email);
-                if (mp.getText().toString().equals(Password))
+               Cursor res = helper.searchPass(m,p);
+                if(res.getCount() == 0) {
+
+                    showMessage("Connexion Impossible","Email et/ou mot de passe incorrecte");
+                }
+                else
                 {
                     Intent Imc=new Intent(MainActivity.this,CalculImc.class);
                     startActivity(Imc);
                 }
-                else
-                {
-                    Toast.makeText(MainActivity.this,"Password don't match",Toast.LENGTH_SHORT).show();
-                }
+
+
+
             }
         });
 
 
+
     }
+
+
+    public void showMessage(String title,String Message){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setCancelable(true);
+        builder.setTitle(title);
+        builder.setMessage(Message);
+        builder.show();
+    }
+
 }

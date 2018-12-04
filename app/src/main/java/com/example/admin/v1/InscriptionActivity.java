@@ -1,5 +1,7 @@
 package com.example.admin.v1;
 
+import android.app.AlertDialog;
+import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -15,6 +17,8 @@ public class InscriptionActivity extends AppCompatActivity {
     private EditText cmp;
     private Button b1;
     DatabaseHelper helper;
+    Button btnviewAll;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,6 +30,9 @@ public class InscriptionActivity extends AppCompatActivity {
         mp=(EditText)findViewById(R.id.mp);
         cmp=(EditText)findViewById(R.id.cmp);
         b1=(Button)findViewById(R.id.ins);
+        btnviewAll = (Button)findViewById(R.id.button_viewAll);
+
+
         b1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -44,17 +51,62 @@ public class InscriptionActivity extends AppCompatActivity {
                 }
                 else
                 {
+
                     user u=new user();
                     u.setPrenom(s1);
                     u.setNom(s2);
                     u.setEmail(s3);
                     u.setMp(s4);
-                    helper.insertuser(u);
+                    boolean isInserted = helper.insertData(u);
+                    if(isInserted == true)
+                        Toast.makeText(InscriptionActivity.this,"Data Inserted",Toast.LENGTH_LONG).show();
+                    else
+                        Toast.makeText(InscriptionActivity.this,"Data not Inserted",Toast.LENGTH_LONG).show();
                 }
+
                 }
+
             }
         });
 
+        btnviewAll.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Cursor res = helper.getAllData();
+                        if(res.getCount() == 0) {
+                            // show message
+                            showMessage("Error","Nothing found");
+                            return;
+                        }
 
+                        StringBuffer buffer = new StringBuffer();
+                        while (res.moveToNext()) {
+                            buffer.append("Prenom :"+ res.getString(0)+"\n");
+                            buffer.append("Nom :"+ res.getString(1)+"\n");
+                            buffer.append("Email :"+ res.getString(2)+"\n");
+                            buffer.append("Mot de passe :"+ res.getString(3)+"\n\n");
+                        }
+
+                        // Show all data
+                        showMessage("Data",buffer.toString());
+                    }
+                }
+        );}
+
+
+    public void showMessage(String title,String Message){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setCancelable(true);
+        builder.setTitle(title);
+        builder.setMessage(Message);
+        builder.show();
     }
+
+
+
+
+
+
+
 }

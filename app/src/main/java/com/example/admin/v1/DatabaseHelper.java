@@ -5,40 +5,37 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 /**
  * Created by Admin on 03/12/2018.
  */
 
 public class DatabaseHelper extends SQLiteOpenHelper {
-    private static final int DATABASE_VERSION = 1;
-    private static final String DATABASE_NAME = "user.db";
-    private static final String TABLE_NAME = "user";
+    public static final String DATABASE_NAME = "user.db";
+    public static final String TABLE_NAME = "user";
     private static final String COLUMN_FIRSTNAME = "prenom";
     private static final String COLUMN_LASTNAME = "nom";
     private static final String COLUMN_EMAIL = "email";
     private static final String COLUMN_PASSWORD = "mp";
-    SQLiteDatabase db;
-    private static final String TABLE_CREATE = "create table user (prenom text not null,nom text not null,email text primary key,mp text not null);";
-
     public DatabaseHelper(Context context) {
-
-        super(context, DATABASE_NAME, null, DATABASE_VERSION);
+        super(context, DATABASE_NAME, null, 1);
     }
+
 
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL(TABLE_CREATE);
-        this.db = db;
+        db.execSQL("create table " + TABLE_NAME +" (prenom TEXT,nom TEXT, email TEXT PRIMARY KEY ,mp INTEGER)");
+
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        String query = ("DROP TABLE IF EXISTS" + TABLE_NAME);
-        db.execSQL(query);
-        this.onCreate(db);
+        db.execSQL("DROP TABLE IF EXISTS "+TABLE_NAME);
+        onCreate(db);
     }
 
 
@@ -49,34 +46,34 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         else return true;
     }
 
-    public void insertuser(user u) {
-        db = this.getWritableDatabase();
-        ContentValues Values = new ContentValues();
-        Values.put(COLUMN_FIRSTNAME, u.getPrenom());
-        Values.put(COLUMN_LASTNAME, u.getNom());
-        Values.put(COLUMN_EMAIL, u.getEmail());
-        Values.put(COLUMN_PASSWORD, u.getMp());
 
-        db.insert(TABLE_NAME, null, Values);
-        db.close();
+    public boolean insertData(user u) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(COLUMN_FIRSTNAME, u.getPrenom());
+        contentValues.put(COLUMN_LASTNAME, u.getNom());
+        contentValues.put(COLUMN_EMAIL, u.getEmail());
+        contentValues.put(COLUMN_PASSWORD, u.getMp());
+        long result = db.insert(TABLE_NAME,null ,contentValues);
+        if(result == -1)
+            return false;
+        else
+            return true;
     }
 
-    public String searchPass(EditText email) {
-        db = this.getReadableDatabase();
-        String query = "select email,mp from " + TABLE_NAME;
-        Cursor cursor = db.rawQuery(query, null);
-        String a, b;
-        b = "not found";
-        if (cursor.moveToFirst()) {
-            do {
-                a = cursor.getString(0);
 
-                if (a.equals(email)) {
-                    b = cursor.getString(1);
-                    break;
-                }
-            } while (cursor.moveToNext());
-        }
-        return b;
+
+
+    public Cursor searchPass(String email, String mp) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        Cursor cursor = db.rawQuery("select email,mp from " + TABLE_NAME+" where email='"+email+"' and mp='"+mp+"';", null);
+       return cursor;
+    }
+
+    public Cursor getAllData() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor res = db.rawQuery("select * from "+TABLE_NAME,null);
+        return res;
     }
 }
