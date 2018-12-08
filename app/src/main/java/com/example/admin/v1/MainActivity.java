@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 else
                 {
-                    Intent Imc=new Intent(MainActivity.this,CalculImc.class);
+                    Intent Imc=new Intent(MainActivity.this,Profile.class);
                     startActivity(Imc);
                 }
 
