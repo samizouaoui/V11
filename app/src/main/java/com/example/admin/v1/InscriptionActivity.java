@@ -15,6 +15,8 @@ public class InscriptionActivity extends AppCompatActivity {
     private EditText email;
     private EditText mp;
     private EditText cmp;
+    private EditText poids;
+    private EditText taille;
     private Button b1;
     DatabaseHelper helper;
     Button btnviewAll;
@@ -29,6 +31,8 @@ public class InscriptionActivity extends AppCompatActivity {
         email=(EditText)findViewById(R.id.email);
         mp=(EditText)findViewById(R.id.mp);
         cmp=(EditText)findViewById(R.id.cmp);
+        poids=(EditText)findViewById(R.id.poids);
+        taille=(EditText)findViewById(R.id.taille);
         b1=(Button)findViewById(R.id.ins);
         btnviewAll = (Button)findViewById(R.id.button_viewAll);
 
@@ -85,7 +89,10 @@ public class InscriptionActivity extends AppCompatActivity {
                             buffer.append("Prenom :"+ res.getString(0)+"\n");
                             buffer.append("Nom :"+ res.getString(1)+"\n");
                             buffer.append("Email :"+ res.getString(2)+"\n");
-                            buffer.append("Mot de passe :"+ res.getString(3)+"\n\n");
+                            buffer.append("Mot de passe :"+ res.getString(3)+"\n");
+                            buffer.append("Poids :"+ res.getString(4)+"\n");
+                            buffer.append("Taille :"+ res.getString(5)+"\n\n");
+
                         }
 
                         // Show all data

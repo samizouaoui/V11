@@ -61,6 +61,7 @@
         android:layout_below="@id/mp"
         android:inputType="textPassword" />
 
+
     <Button
         android:text="Inscription"
         android:layout_width="wrap_content"

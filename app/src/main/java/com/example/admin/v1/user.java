@@ -9,6 +9,8 @@ public class user {
     String nom;
     String email;
     String mp;
+    String poids;
+    String taille;
 
     public user() {
 
@@ -44,5 +46,21 @@ public class user {
 
     public void setMp(String mp) {
         this.mp = mp;
+    }
+
+    public String getPoids() {
+        return poids;
+    }
+
+    public void setPoids(String poids) {
+        this.poids = poids;
+    }
+
+    public String getTaille() {
+        return taille;
+    }
+
+    public void setTaille(String taille) {
+        this.taille = taille;
     }
 }

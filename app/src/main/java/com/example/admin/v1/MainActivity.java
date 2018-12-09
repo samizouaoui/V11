@@ -18,7 +18,7 @@ public class MainActivity extends AppCompatActivity {
     private EditText mp;
     DatabaseHelper helper;
 
-
+    String poids;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,15 +45,37 @@ public class MainActivity extends AppCompatActivity {
                 String p=mp.getText().toString();
 
                Cursor res = helper.searchPass(m,p);
+                 Cursor resp=helper.getPoids(m);
+
+
                 if(res.getCount() == 0) {
 
                     showMessage("Connexion Impossible","Email et/ou mot de passe incorrecte");
                 }
                 else
+
                 {
-                    Intent Imc=new Intent(MainActivity.this,Profile.class);
-                    startActivity(Imc);
+
+                    while (resp.moveToNext()) {
+                        poids = resp.getString(0);
+
+                        if (poids==null)
+                        {
+                            Intent Imc = new Intent(MainActivity.this,CalculImc.class);
+                            Imc.putExtra("email",m);
+                        startActivity(Imc);
+                        }
+                        else
+
+                        {
+                            Intent Imc = new Intent(MainActivity.this,Profile.class);
+                            startActivity(Imc);
+                        }
+
+                    }
+
                 }
+
 
 
 

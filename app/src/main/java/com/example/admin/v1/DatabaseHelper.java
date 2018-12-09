@@ -14,12 +14,14 @@ import android.widget.Toast;
  */
 
 public class DatabaseHelper extends SQLiteOpenHelper {
-    public static final String DATABASE_NAME = "user.db";
+    public static final String DATABASE_NAME = "user1.db";
     public static final String TABLE_NAME = "user";
     private static final String COLUMN_FIRSTNAME = "prenom";
     private static final String COLUMN_LASTNAME = "nom";
     private static final String COLUMN_EMAIL = "email";
     private static final String COLUMN_PASSWORD = "mp";
+    private static final String COLUMN_POIDS = "poids";
+    private static final String COLUMN_TAILLE = "taille";
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, 1);
     }
@@ -28,7 +30,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("create table " + TABLE_NAME +" (prenom TEXT,nom TEXT, email TEXT PRIMARY KEY ,mp INTEGER)");
+        db.execSQL("create table " + TABLE_NAME +" (prenom TEXT,nom TEXT, email TEXT PRIMARY KEY ,mp INTEGER,poids TEXT NULL,taille TEXT NULL)");
+
 
     }
 
@@ -60,15 +63,40 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         else
             return true;
     }
+    public boolean updatePT(String id,String p,String t) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(COLUMN_EMAIL,id);
+        contentValues.put(COLUMN_POIDS,p);
+        contentValues.put(COLUMN_TAILLE,t);
 
-
-
+        long result= db.update(TABLE_NAME, contentValues, "email = ?",new String[] { id });
+        if(result == -1)
+            return false;
+        else
+            return true;
+    }
 
     public Cursor searchPass(String email, String mp) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         Cursor cursor = db.rawQuery("select email,mp from " + TABLE_NAME+" where email='"+email+"' and mp='"+mp+"';", null);
        return cursor;
+    }
+
+    public Cursor getPoids(String email) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        Cursor cursor = db.rawQuery("select poids from " + TABLE_NAME+" where email='"+email+"';", null);
+        return cursor;
+
+    }
+
+    public Cursor getTaille(String email) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        Cursor cursor = db.rawQuery("select taille from " + TABLE_NAME+" where email='"+email+"';", null);
+        return cursor;
     }
 
     public Cursor getAllData() {

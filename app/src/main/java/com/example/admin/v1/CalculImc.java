@@ -1,5 +1,6 @@
 package com.example.admin.v1;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -7,6 +8,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class CalculImc extends AppCompatActivity {
       EditText poids;
@@ -19,17 +21,19 @@ public class CalculImc extends AppCompatActivity {
     ImageView f6;
     ImageView f2;
     ImageView f4;
+    DatabaseHelper helper;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calcul_imc);
+        helper = new DatabaseHelper(this);
         poids = (EditText) findViewById(R.id.poids);
         taille = (EditText) findViewById(R.id.taille);
         imc = (TextView) findViewById(R.id.imc);
         calculer = (Button) findViewById(R.id.btn);
 
         img=(ImageView) findViewById(R.id.imgimc);
-        f3=(ImageView) findViewById(R.id.f3);
+        f3=(ImageView) findViewById(R.id.f11);
         f1=(ImageView) findViewById(R.id.f1);
         f6=(ImageView) findViewById(R.id.f6);
         f2=(ImageView) findViewById(R.id.f2);
@@ -39,9 +43,18 @@ public class CalculImc extends AppCompatActivity {
         calculer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Intent intentrecup=getIntent();
+                String email=intentrecup.getStringExtra("email");
+                String pd=poids.getText().toString();
+                String ta=taille.getText().toString();
+if ((helper.updatePT(email,pd,ta)) == true)
+    Toast.makeText(CalculImc.this,"Data Inserted",Toast.LENGTH_LONG).show();
+else
+    Toast.makeText(CalculImc.this,"Data not Inserted",Toast.LENGTH_LONG).show();
+
                 float res;
-                float t=(Float.parseFloat(taille.getText().toString()));
-                res =(Float.parseFloat(poids.getText().toString()))/(t*t);
+                float t=(Float.parseFloat(ta));
+                res =(Float.parseFloat(pd))/(t*t);
                 img.setVisibility(View.VISIBLE);
                 imc.setText(String.valueOf("Votre IMC est : "+res));
                 if (0<res && res <18.5) {
