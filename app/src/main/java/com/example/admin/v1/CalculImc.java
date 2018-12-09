@@ -23,6 +23,7 @@ public class CalculImc extends AppCompatActivity {
     ImageView f4;
     DatabaseHelper helper;
     @Override
+    //n
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calcul_imc);
