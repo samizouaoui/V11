@@ -21,6 +21,7 @@ public class CalculImc extends AppCompatActivity {
     ImageView f6;
     ImageView f2;
     ImageView f4;
+    Button suiv;
     DatabaseHelper helper;
     @Override
     //nnn
@@ -32,7 +33,7 @@ public class CalculImc extends AppCompatActivity {
         taille = (EditText) findViewById(R.id.taille);
         imc = (TextView) findViewById(R.id.imc);
         calculer = (Button) findViewById(R.id.btn);
-
+        suiv=(Button)findViewById(R.id.BtnSuiv);
         img=(ImageView) findViewById(R.id.imgimc);
         f3=(ImageView) findViewById(R.id.f11);
         f1=(ImageView) findViewById(R.id.f1);
@@ -49,15 +50,22 @@ public class CalculImc extends AppCompatActivity {
                 String pd=poids.getText().toString();
                 String ta=taille.getText().toString();
 if ((helper.updatePT(email,pd,ta)) == true)
-    Toast.makeText(CalculImc.this,"Data Inserted",Toast.LENGTH_LONG).show();
+    Toast.makeText(CalculImc.this,"Poids et taille enregistrés",Toast.LENGTH_LONG).show();
 else
-    Toast.makeText(CalculImc.this,"Data not Inserted",Toast.LENGTH_LONG).show();
+    Toast.makeText(CalculImc.this,"erreur",Toast.LENGTH_LONG).show();
 
                 float res;
                 float t=(Float.parseFloat(ta));
                 res =(Float.parseFloat(pd))/(t*t);
                 img.setVisibility(View.VISIBLE);
                 imc.setText(String.valueOf("Votre IMC est : "+res));
+                suiv.setVisibility(View.VISIBLE);
+                suiv.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                    }
+                });
                 if (0<res && res <18.5) {
                     f1.setVisibility(View.VISIBLE);
                     f2.setVisibility(View.INVISIBLE);

@@ -11,10 +11,13 @@ import android.view.ViewGroup;
  * Created by Admin on 08/12/2018.
  */
 
-public class fragment1 extends Fragment {
+public class fragmentprofil extends Fragment {
+
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment1,container,false);
+
+        return inflater.inflate(R.layout.nav_profil,container,false);
     }
 }

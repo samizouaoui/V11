@@ -1,6 +1,7 @@
 package com.example.admin.v1;
 
 import android.app.AlertDialog;
+import android.content.Intent;
 import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -63,7 +64,9 @@ public class InscriptionActivity extends AppCompatActivity {
                     u.setMp(s4);
                     boolean isInserted = helper.insertData(u);
                     if(isInserted == true)
-                        Toast.makeText(InscriptionActivity.this,"Data Inserted",Toast.LENGTH_LONG).show();
+                    { Intent i1=new Intent(InscriptionActivity.this,Photo.class);
+                        startActivity(i1);
+                    }
                     else
                         Toast.makeText(InscriptionActivity.this,"Data not Inserted",Toast.LENGTH_LONG).show();
                 }

@@ -111,4 +111,15 @@
         android:layout_alignTop="@+id/f4"
         android:visibility="invisible" />
 
+    <Button
+        android:text="Suivant "
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/BtnSuiv"
+        android:layout_above="@+id/taille"
+        android:layout_toEndOf="@+id/poids"
+        android:layout_marginBottom="42dp"
+        android:layout_alignStart="@+id/f4"
+        android:visibility="invisible" />
+
 </RelativeLayout>
