@@ -2,6 +2,28 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/holo_red_dark">
+    >
+<TextView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:text="Petit déjeuner :
+Du thé sans sucre
+Du pain (50 g) avec du beurre (10 g)
+De l’emmental (25 g)
+1 pomme
+Déjeuner :
+Des carottes râpées
+Du saumon au curry
+Du riz (100 g)
+Des poireaux préparés à la vapeur
+Du yaourt nature non sucré
+2 clémentines
+Dîner :
+Des courgettes en velouté
+De la viande hachée maigre
+Des haricots verts poêlés avec du beurre (10 g)
+Du fromage blanc accompagné de coulis de fruits"
+    android:layout_alignParentEnd="true"
+    android:textSize="20sp" />
 
 </RelativeLayout>

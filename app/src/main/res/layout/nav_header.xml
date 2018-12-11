@@ -13,8 +13,9 @@
 
 
     <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-
-        android:id="@+id/choose" />
+        android:layout_width="369dp"
+        android:layout_height="126dp"
+        app:srcCompat="@drawable/fit"
+        android:id="@+id/imageView3"
+        android:layout_weight="0.44" />
 </LinearLayout>

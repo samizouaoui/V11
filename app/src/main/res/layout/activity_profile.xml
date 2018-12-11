@@ -23,17 +23,12 @@
           android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
           app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
           android:elevation="4dp"
-          app:title="hi" />
+          app:title="You Can Diet" />
       <FrameLayout
           android:id="@+id/fragment_container"
           android:layout_width="match_parent"
           android:layout_height="match_parent">
 
-          <ImageButton
-              android:layout_width="201dp"
-              android:layout_height="50dp"
-
-              android:id="@+id/importer" />
       </FrameLayout>
 
   </LinearLayout>
