@@ -63,7 +63,8 @@ else
                 suiv.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-
+                        Intent intent=new Intent(CalculImc.this,Profile.class);
+                        startActivity(intent);
                     }
                 });
                 if (0<res && res <18.5) {

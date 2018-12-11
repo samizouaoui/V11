@@ -27,7 +27,8 @@ public class Photo extends AppCompatActivity {
         suivant.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Intent intent2=new Intent(Photo.this,CalculImc.class);
+                startActivity(intent2);
             }
         });
         ignorer.setOnClickListener(new View.OnClickListener() {
